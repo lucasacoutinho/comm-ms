@@ -1,0 +1,6 @@
+.devcontainer
+node_modules
+npm-debug.log
+Dockerfile
+Dockerfile.dev
+

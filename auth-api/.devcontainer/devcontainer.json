@@ -1,0 +1,34 @@
+{
+    "name": "ms-auth-api",
+    "dockerComposeFile": "../../docker-compose.dev.yml",
+    "service": "ms-auth-api",
+    "remoteUser": "node",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "GitHub.copilot-chat",
+                "GitHub.copilot",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ],
+            "settings": {
+                "sqltools.connections": [
+                    {
+                        "name": "ms-auth-db",
+                        "driver": "PostgreSQL",
+                        "server": "ms-auth-db",
+                        "port": 5432,
+                        "database": "ms-auth-db",
+                        "username": "ms-auth-db",
+                        "password": "ms-auth-db"
+                    }
+                ],
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "shutdownAction": "stopCompose"
+}

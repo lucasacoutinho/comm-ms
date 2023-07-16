@@ -1,0 +1,8 @@
+.devcontainer
+.vscode
+.gradle
+bin
+build
+.gitigore
+Dockerfile
+Dockerfile.dev

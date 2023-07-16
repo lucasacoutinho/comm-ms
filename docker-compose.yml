@@ -1,0 +1,122 @@
+version: '3'
+
+services:
+  ms-auth-api:
+    build:
+      context: ./auth-api
+      dockerfile: ./Dockerfile
+    container_name: ms-auth-api
+    environment:
+      NODE_ENV: container
+      API_SECRET: YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY=
+      PORT: 3000
+      DB_HOST: ms-auth-db
+      DB_PORT: 5432
+      DB_USER: ms-auth-db
+      DB_PASS: ms-auth-db
+    ports:
+      - 3000:3000
+    networks:
+      - ms-network
+    depends_on:
+      - ms-auth-db
+
+  ms-auth-db:
+    image: postgres:latest
+    container_name: ms-auth-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ms-auth-db
+      POSTGRES_PASSWORD: ms-auth-db
+      POSTGRES_DB: ms-auth-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ms-auth-db:/var/lib/postgresql/data
+    networks:
+      - ms-network
+
+  ms-product-api:
+    build:
+      context: ./product-api
+      dockerfile: ./Dockerfile
+    container_name: ms-product-api
+    environment:
+      PORT: 3333
+      DB_HOST: ms-product-db
+      DB_PORT: 5433
+      DB_USER: ms-product-db
+      DB_PASS: ms-product-db
+    ports:
+      - 3333:3333
+    networks:
+      - ms-network
+    depends_on:
+      - ms-product-db
+
+  ms-product-db:
+    image: postgres:latest
+    container_name: ms-product-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ms-product-db
+      POSTGRES_PASSWORD: ms-product-db
+      POSTGRES_DB: ms-product-db
+    ports:
+      - 5433:5432
+    volumes:
+      - ms-product-db:/var/lib/postgresql/data
+    networks:
+      - ms-network
+
+  ms-sales-api:
+    build:
+      context: ./sales-api
+      dockerfile: ./Dockerfile
+    container_name: ms-sales-api
+    environment:
+      NODE_ENV: container
+      PORT: 8080
+      DB_CONN: mongodb://ms-sales-db:ms-sales-db@ms-sales-db:27017/
+    ports:
+      - 8080:8080
+    networks:
+      - ms-network
+    depends_on:
+      - ms-sales-db
+
+  ms-sales-db:
+    image: mongo:latest
+    container_name: ms-sales-db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: ms-sales-db
+      MONGO_INITDB_ROOT_USERNAME: ms-sales-db
+      MONGO_INITDB_ROOT_PASSWORD: ms-sales-db
+    volumes:
+      - ms-sales-db:/data/db
+    networks:
+      - ms-network
+
+  ms-rabbitmq:
+    image: rabbitmq:management
+    container_name: ms-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ms-rabbitmq
+      RABBITMQ_DEFAULT_PASS: ms-rabbitmq
+    ports:
+      - 5672:5672
+      - 25676:25676
+      - 15672:15672
+    networks:
+      - ms-network
+
+volumes:
+  ms-auth-db:
+  ms-product-db:
+  ms-sales-db:
+
+networks:
+  ms-network:
+    driver: bridge

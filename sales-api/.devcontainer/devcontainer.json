@@ -1,0 +1,36 @@
+{
+    "name": "ms-sales-api",
+    "dockerComposeFile": "../../docker-compose.dev.yml",
+    "service": "ms-sales-api",
+    "remoteUser": "node",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint",
+                "GitHub.copilot-chat",
+                "GitHub.copilot",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg"
+            ],
+            "settings": {
+                "settings": {
+                    "sqltools.connections": [
+                        {
+                            "name": "ms-sales-db",
+                            "driver": "PostgreSQL",
+                            "server": "ms-sales-db",
+                            "port": 5432,
+                            "database": "ms-sales-db",
+                            "username": "ms-sales-db",
+                            "password": "ms-sales-db"
+                        }
+                    ]
+                },
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "shutdownAction": "stopCompose"
+}

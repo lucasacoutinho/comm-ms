@@ -1,0 +1,36 @@
+{
+    "name": "ms-product-api",
+    "dockerComposeFile": "../../docker-compose.dev.yml",
+    "service": "ms-product-api",
+    "remoteUser": "gradle",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot-chat",
+                "GitHub.copilot",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg",
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-spring-initializr",
+                "vscjava.vscode-gradle",
+                "vmware.vscode-boot-dev-pack"
+            ],
+            "settings": {
+                "sqltools.connections": [
+                    {
+                        "name": "ms-product-db",
+                        "driver": "PostgreSQL",
+                        "server": "ms-product-db",
+                        "port": 5433,
+                        "database": "ms-product-db",
+                        "username": "ms-product-db",
+                        "password": "ms-product-db"
+                    }
+                ],
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "shutdownAction": "stopCompose"
+}

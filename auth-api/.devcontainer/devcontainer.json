@@ -7,12 +7,12 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "esbenp.prettier-vscode",
-                "dbaeumer.vscode-eslint",
                 "GitHub.copilot-chat",
                 "GitHub.copilot",
                 "mtxr.sqltools",
-                "mtxr.sqltools-driver-pg"
+                "mtxr.sqltools-driver-pg",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
             ],
             "settings": {
                 "sqltools.connections": [

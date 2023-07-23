@@ -14,6 +14,7 @@ services:
       DB_PORT: 5432
       DB_USER: ms-auth-db
       DB_PASS: ms-auth-db
+      DB_DATABASE: ms-auth-db
     ports:
       - 3000:3000
     volumes:
@@ -50,6 +51,7 @@ services:
       DB_PORT: 5433
       DB_USER: ms-product-db
       DB_PASS: ms-product-db
+      DB_DATABASE: ms-product-db
     ports:
       - 3333:3333
     volumes:

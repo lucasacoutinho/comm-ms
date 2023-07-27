@@ -22,7 +22,7 @@
                         "name": "ms-product-db",
                         "driver": "PostgreSQL",
                         "server": "ms-product-db",
-                        "port": 5433,
+                        "port": 5432,
                         "database": "ms-product-db",
                         "username": "ms-product-db",
                         "password": "ms-product-db"

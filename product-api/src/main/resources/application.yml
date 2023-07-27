@@ -2,5 +2,28 @@ server:
     port: 3333
 
 spring:
+    main:
+        allow-circular-references: true
+
     application:
         name: product-api
+
+    data-source:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://ms-product-db:5432/ms-product-db
+        username: ms-product-db
+        password: ms-product-db
+        initialization-mode: always
+        initialize: true
+        continue-on-error: true
+        plataform: postgresql
+        max-active: 3
+
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+            format_sql: true
+        show_sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect

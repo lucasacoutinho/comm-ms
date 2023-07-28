@@ -17,4 +17,12 @@ public class ExceptionGlobalHandler {
 
         return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<?> handleAuthenticationException(AuthenticationException authenticationException) {
+        var response = new HashMap<String, Object>();
+        response.put("message", authenticationException.getMessage());
+
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
 }

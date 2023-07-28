@@ -63,6 +63,19 @@ public class CategoryService {
                 .orElseThrow(() -> new ValidationException("Category not found"));
     }
 
+    public CategoryResponse update(Integer id, CategoryRequest categoryRequest) {
+        if (ObjectUtils.isEmpty(id)) {
+            throw new ValidationException("Category id is required");
+        }
+
+        this.validateCategoryNameInformed(categoryRequest);
+
+        var category = Category.of(categoryRequest);
+        category.setId(id);
+        this.categoryRepository.save(category);
+        return CategoryResponse.of(category);
+    }
+
     public void delete(Integer id) {
         if (ObjectUtils.isEmpty(id)) {
             throw new ValidationException("Category id is required");

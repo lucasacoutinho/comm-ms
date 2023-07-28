@@ -1,9 +1,10 @@
 server:
-    port: 3333
+    port: ${PORT}
 
 spring:
     main:
         allow-circular-references: true
+        allow-bean-definition-overriding: true
 
     application:
         name: product-api
@@ -27,3 +28,28 @@ spring:
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    rabbitmq:
+        host: ${RABBIT_MQ_HOST}
+        port: ${RABBIT_MQ_PORT}
+        username: ${RABBIT_MQ_USERNAME}
+        password: ${RABBIT_MQ_PASSWORD}
+
+app-config:
+    secrets:
+        api-secret: ${API_SECRET}
+
+    rabbit:
+        exchange:
+            product: product.topic
+
+        routingKey:
+            product-stock: product-stock-update.routingKey
+            sales-confirmation: sales-confirmation.routingKey
+
+        queue:
+            product-stock: product-stock-update.queue
+            sales-confirmation: sales-confirmation.queue
+
+    services:
+        sales: ${SALES_SERVICE_HOST}:${SALES_SERVICE_PORT}

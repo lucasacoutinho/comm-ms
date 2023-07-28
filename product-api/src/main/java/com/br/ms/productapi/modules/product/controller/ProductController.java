@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.ms.productapi.modules.product.dto.ProductCheckStockRequest;
 import com.br.ms.productapi.modules.product.dto.ProductRequest;
 import com.br.ms.productapi.modules.product.dto.ProductResponse;
+import com.br.ms.productapi.modules.product.dto.ProductSalesResponse;
 import com.br.ms.productapi.modules.product.service.ProductService;
 
 @RestController
@@ -27,37 +29,53 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponse> findAll() {
-        return this.productService.findAll();
+        return productService.findAll();
     }
 
     @PostMapping
     public ProductResponse store(@RequestBody ProductRequest productRequest) {
-        return this.productService.store(productRequest);
+        return productService.store(productRequest);
     }
 
     @GetMapping("{id}")
     public ProductResponse findById(@PathVariable Integer id) {
-        return this.productService.findByIdResponse(id);
+        return productService.findByIdResponse(id);
     }
 
     @GetMapping("name/{name}")
     public List<ProductResponse> findByName(@PathVariable String name) {
-        return this.productService.findByName(name);
+        return productService.findByName(name);
     }
 
     @GetMapping("category/{categoryId}")
     public List<ProductResponse> findByCategoryId(@PathVariable Integer categoryId) {
-        return this.productService.findByCategoryId(categoryId);
+        return productService.findByCategoryId(categoryId);
     }
 
     @GetMapping("supplier/{supplierId}")
     public List<ProductResponse> findBySupplierId(@PathVariable Integer supplierId) {
-        return this.productService.findBySupplierId(supplierId);
+        return productService.findBySupplierId(supplierId);
+    }
+
+    @PutMapping("{id}")
+    public ProductResponse update(@PathVariable Integer id, @RequestBody ProductRequest productRequest) {
+        return productService.update(id, productRequest);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
-        this.productService.delete(id);
+        productService.delete(id);
+    }
+
+    @PostMapping("check-stock")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void checkStock(@RequestBody ProductCheckStockRequest productCheckStockRequest) {
+        productService.checkProductsStock(productCheckStockRequest);
+    }
+
+    @GetMapping("{productId}/sales")
+    public ProductSalesResponse findSalesByProductId(@PathVariable Integer productId) {
+        return productService.findSalesByProductId(productId);
     }
 }

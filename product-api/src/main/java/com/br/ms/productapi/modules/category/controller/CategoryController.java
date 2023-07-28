@@ -45,6 +45,11 @@ public class CategoryController {
         return this.categoryService.findByDescription(description);
     }
 
+    @PutMapping("{id}")
+    public CategoryResponse update(@PathVariable Integer id, @RequestBody CategoryRequest categoryRequest) {
+        return this.categoryService.update(id, categoryRequest);
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {

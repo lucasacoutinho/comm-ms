@@ -82,4 +82,8 @@ public class Product {
                 .supplier(supplier)
                 .build();
     }
+
+    public void removeStock(Integer quantity) {
+        this.quantity -= quantity;
+    }
 }

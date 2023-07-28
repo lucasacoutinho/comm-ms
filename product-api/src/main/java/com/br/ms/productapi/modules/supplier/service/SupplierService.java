@@ -63,6 +63,20 @@ public class SupplierService {
                 .orElseThrow(() -> new ValidationException("Supplier not found"));
     }
 
+    public SupplierResponse update(Integer id, SupplierRequest supplierRequest) {
+        if (ObjectUtils.isEmpty(id)) {
+            throw new ValidationException("Supplier id is required");
+        }
+
+        this.validateSupplierNameInformed(supplierRequest);
+
+        var supplier = Supplier.of(supplierRequest);
+        supplier.setId(id);
+        this.supplierRepository.save(supplier);
+
+        return SupplierResponse.of(supplier);
+    }
+
     public void delete(Integer id) {
         if (ObjectUtils.isEmpty(id)) {
             throw new ValidationException("Supplier id is required");

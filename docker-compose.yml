@@ -47,6 +47,12 @@ services:
       DB_PORT: 5433
       DB_USER: ms-product-db
       DB_PASS: ms-product-db
+      RABBIT_MQ_HOST: ms-rabbitmq
+      RABBIT_MQ_PORT: 5672
+      RABBIT_MQ_USERNAME: ms-rabbitmq
+      RABBIT_MQ_PASSWORD: ms-rabbitmq
+      SALES_SERVICE_HOST: ms-sales-api
+      SALES_SERVICE_PORT: 8080
     ports:
       - 3333:3333
     networks:
@@ -75,9 +81,20 @@ services:
       dockerfile: ./Dockerfile
     container_name: ms-sales-api
     environment:
+      API_SECRET: YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY=
       NODE_ENV: container
       PORT: 8080
-      DB_CONN: mongodb://ms-sales-db:ms-sales-db@ms-sales-db:27017/
+      DB_HOST: ms-sales-db
+      DB_PORT: 27017
+      DB_USER: ms-sales-db
+      DB_PASS: ms-sales-db
+      DB_DATABASE: ms-sales-db
+      RABBIT_MQ_HOST: ms-rabbitmq
+      RABBIT_MQ_PORT: 5672
+      RABBIT_MQ_USERNAME: ms-rabbitmq
+      RABBIT_MQ_PASSWORD: ms-rabbitmq
+      SALES_PRODUCT_HOST: ms-product-api
+      SALES_PRODUCT_PORT: 3333
     ports:
       - 8080:8080
     networks:

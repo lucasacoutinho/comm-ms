@@ -15,7 +15,16 @@
             ],
             "settings": {
                 "mdb.connectionSaving.defaultConnectionSavingLocation": "Workspace",
-                "terminal.integrated.shell.linux": "/bin/bash"
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "[typescript]": {
+                    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+                },
+                "[json]": {
+                    "editor.quickSuggestions": {
+                        "strings": true
+                    },
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                }
             }
         }
     },

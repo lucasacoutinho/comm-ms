@@ -51,6 +51,11 @@ services:
       RABBIT_MQ_PORT: 5672
       RABBIT_MQ_USERNAME: ms-rabbitmq
       RABBIT_MQ_PASSWORD: ms-rabbitmq
+      RABBIT_MQ_PRODUCT_TOPIC: product.topic
+      RABBIT_MQ_STOCK_UPDATE_QUEUE: product-stock-update.queue
+      RABBIT_MQ_STOCK_UPDATE_ROUTING_KEY: product-stock-update.routingKey
+      RABBIT_MQ_SALES_CONFIRMATION_QUEUE: sales-confirmation.queue
+      RABBIT_MQ_SALES_CONFIRMATION_ROUTING_KEY: sales-confirmation.routingKey
       SALES_SERVICE_HOST: ms-sales-api
       SALES_SERVICE_PORT: 8080
     ports:
@@ -84,15 +89,16 @@ services:
       API_SECRET: YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY=
       NODE_ENV: container
       PORT: 8080
-      DB_HOST: ms-sales-db
-      DB_PORT: 27017
-      DB_USER: ms-sales-db
-      DB_PASS: ms-sales-db
-      DB_DATABASE: ms-sales-db
+      DB_CONN: mongodb://ms-sales-db:ms-sales-db@ms-sales-db:27017
       RABBIT_MQ_HOST: ms-rabbitmq
       RABBIT_MQ_PORT: 5672
       RABBIT_MQ_USERNAME: ms-rabbitmq
       RABBIT_MQ_PASSWORD: ms-rabbitmq
+      RABBIT_MQ_PRODUCT_TOPIC: product.topic
+      RABBIT_MQ_STOCK_UPDATE_QUEUE: product-stock-update.queue
+      RABBIT_MQ_STOCK_UPDATE_ROUTING_KEY: product-stock-update.routingKey
+      RABBIT_MQ_SALES_CONFIRMATION_QUEUE: sales-confirmation.queue
+      RABBIT_MQ_SALES_CONFIRMATION_ROUTING_KEY: sales-confirmation.routingKey
       SALES_PRODUCT_HOST: ms-product-api
       SALES_PRODUCT_PORT: 3333
     ports:

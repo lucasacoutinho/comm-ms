@@ -41,15 +41,15 @@ app-config:
 
     rabbit:
         exchange:
-            product: product.topic
+            product: ${RABBIT_MQ_PRODUCT_TOPIC}
 
         routingKey:
-            product-stock: product-stock-update.routingKey
-            sales-confirmation: sales-confirmation.routingKey
+            product-stock: ${RABBIT_MQ_STOCK_UPDATE_ROUTING_KEY}
+            sales-confirmation: ${RABBIT_MQ_SALE_CONFIRMATION_ROUTING_KEY}
 
         queue:
-            product-stock: product-stock-update.queue
-            sales-confirmation: sales-confirmation.queue
+            product-stock: ${RABBIT_MQ_STOCK_UPDATE_QUEUE}
+            sales-confirmation: ${RABBIT_MQ_SALE_CONFIRMATION_QUEUE}
 
     services:
         sales: ${SALES_SERVICE_HOST}:${SALES_SERVICE_PORT}

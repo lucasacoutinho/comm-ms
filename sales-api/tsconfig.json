@@ -27,7 +27,7 @@
     "noImplicitAny": true /* In some cases where no type annotations are present, TypeScript will fall back to a type of any for a variable when it cannot infer the type. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "typeRoots": [
-      "src/types",
+      "./src/types",
       "./node_modules/@types"
     ] /* Specify multiple folders that act like `./node_modules/@types`. */,
     "noImplicitReturns": true,

@@ -1,24 +1,28 @@
-import { Entity, ObjectId, ObjectIdColumn, Column } from "typeorm";
-import { Product } from "./Product";
-import { User } from "./User";
+import mongoose from "mongoose";
 
-@Entity()
-export class Order {
-  @ObjectIdColumn()
-  id: ObjectId;
+const OrderSchema = new mongoose.Schema({
+  products: {
+    type: Array,
+    required: true
+  },
+  user: {
+    type: Object,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
+});
 
-  @Column({ name: "products" })
-  products: Product[];
-
-  @Column({ name: "user" })
-  user: User;
-
-  @Column({ name: "status", type: "string", nullable: false })
-  status: string;
-
-  @Column({ name: "created_at", type: "timestamp", default: new Date() })
-  createdAt: Date;
-
-  @Column({ name: "updated_at", type: "timestamp", default: new Date() })
-  updatedAt: Date;
-}
+export default mongoose.model("Order", OrderSchema);

@@ -5,6 +5,12 @@ import { env } from "./config/env";
 import router from "./routes";
 import HttpStatusCode from "./enum/HttpStatusCode";
 import AppException from "./exception/AppException";
+import database from "./config/database";
+import amqp from "./config/amqp";
+
+database.connectMongoDB();
+database.initialize();
+amqp.connectRabbitMq();
 
 const app: Express = express();
 const port = env.PORT;

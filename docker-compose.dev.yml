@@ -72,6 +72,7 @@ services:
       - ms-network
     depends_on:
       - ms-product-db
+      - ms-rabbitmq
     command: sleep infinity
 
   ms-product-db:
@@ -118,6 +119,7 @@ services:
       - ms-network
     depends_on:
       - ms-sales-db
+      - ms-rabbitmq
     command: sleep infinity
 
   ms-sales-db:

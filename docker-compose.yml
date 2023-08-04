@@ -64,6 +64,7 @@ services:
       - ms-network
     depends_on:
       - ms-product-db
+      - ms-rabbitmq
 
   ms-product-db:
     image: postgres:latest
@@ -107,6 +108,7 @@ services:
       - ms-network
     depends_on:
       - ms-sales-db
+      - ms-rabbitmq
 
   ms-sales-db:
     image: mongo:latest
@@ -139,6 +141,7 @@ volumes:
   ms-auth-db:
   ms-product-db:
   ms-sales-db:
+
 
 networks:
   ms-network:

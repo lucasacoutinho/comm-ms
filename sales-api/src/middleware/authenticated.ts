@@ -26,7 +26,7 @@ const authenticated = async (req: Request, res: Response, next: NextFunction) =>
     const token = (authorization as string)?.replace("Bearer", "").trim();
     const decoded = (await verify(token)) as { id: number; iat: number; exp: number };
 
-    req.auth = decoded.id;
+    req.user = { user_id: decoded.id };
 
     return next();
   } catch (error: unknown) {

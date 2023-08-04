@@ -1,8 +1,19 @@
 import mongoose from "mongoose";
+import { Product } from "../types/product";
+import { User } from "../types/user";
 
-const OrderSchema = new mongoose.Schema({
+export interface IOrder {
+  _id?: string;
+  products?: Array<Product>;
+  user: User;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const OrderSchema = new mongoose.Schema<IOrder>({
   products: {
-    type: Array,
+    type: Array<Product>,
     required: true
   },
   user: {
@@ -25,4 +36,4 @@ const OrderSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model("Order", OrderSchema);
+export default mongoose.model<IOrder>("Order", OrderSchema);

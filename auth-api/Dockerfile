@@ -32,10 +32,8 @@ COPY package*.json .
 RUN yarn install --production
 
 # Copy source code
-COPY --from=TEMP_BUILD_IMAGE $APP_DIR/src/public ./public
-
 COPY --from=TEMP_BUILD_IMAGE $APP_DIR/dist ./dist
 
 EXPOSE 3000
 
-CMD ["node", "dist/app.js"]
+CMD node dist/app.js

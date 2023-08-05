@@ -4,7 +4,7 @@ import { env } from "../../../config/env";
 import OrderService from "../../../service/OrderService";
 import OrderStatus from "../../../enum/OrderStatus";
 
-type SaleConfirmationMessage = {
+type SaleConfirmationDTO = {
   sales_id: string;
   status: OrderStatus;
 };
@@ -31,7 +31,7 @@ const listen = () => {
           console.info(" [x] Received %s", msg.content.toString());
 
           try {
-            const order = JSON.parse(msg.content.toString()) as SaleConfirmationMessage;
+            const order = JSON.parse(msg.content.toString()) as SaleConfirmationDTO;
             if (order.sales_id && order.status) {
               OrderService.updateStatus(order.sales_id, order.status);
             } else {

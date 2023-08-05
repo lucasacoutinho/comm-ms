@@ -1,17 +1,14 @@
 import amqp, { Channel, Connection } from "amqplib/callback_api";
 import { CONNECT_URL } from "../../../config/amqp";
 import { env } from "../../../config/env";
+import { Product } from "../../../types/product";
 
-type StockChange = {
-  product_id: number;
-  quantity: number;
+type ProductStockDTO = {
+  sales_id: string;
+  products: Product[];
 };
 
-export interface IStockChange {
-  send(content: StockChange[]): void;
-}
-
-const send = (content: StockChange[]) => {
+const send = (content: ProductStockDTO) => {
   amqp.connect(CONNECT_URL, (err: unknown, conn: Connection) => {
     if (err) {
       throw err;

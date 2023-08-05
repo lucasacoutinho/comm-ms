@@ -10,15 +10,16 @@ class ProductClient {
       let response = true;
 
       const headers = {
+        "Content-Type": "application/json",
         Authorization: token
       };
 
       await axios
-        .post(`${API_URL}/api/product/check-stock`, { products: products }, { headers })
+        .post(`http://${API_URL}/api/product/check-stock`, { products }, { headers })
         .then(() => {
           response = false;
         })
-        .catch((res) => {
+        .catch(() => {
           response = true;
         });
 

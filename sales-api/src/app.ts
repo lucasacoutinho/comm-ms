@@ -10,7 +10,7 @@ import amqp from "./config/amqp";
 import { ZodError } from "zod";
 
 database.connectMongoDB();
-database.initialize();
+// database.initialize();
 amqp.connectRabbitMq();
 
 const app: Express = express();

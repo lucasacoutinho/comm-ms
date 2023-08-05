@@ -3,14 +3,15 @@
     "lib": [
       "ES5",
       "ES6",
-      "ES2020",
+      "ES2021",
       "ESNext",
-      "DOM"
+      "dom",
+      "dom.iterable"
     ],
     "resolveJsonModule": true,
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,
     "removeComments": true /* Strips all comments from TypeScript files when converting into JavaScript- you rarely read compiled code so this saves space */,
-    "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ES2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "commonjs" /* Specify what module code is generated. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */,
     "moduleResolution": "node" /* Pretty much always node for modern JS. Other option is "classic" */,
@@ -33,7 +34,8 @@
     "noUncheckedIndexedAccess": true /* Accessing index must always check for undefined */,
     "noUnusedLocals": true /* Report errors on unused local variables. */,
     "noUnusedParameters": true /* Report errors on unused parameters in functions */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "allowJs": true
   },
   "exclude": [
     "node_modules"

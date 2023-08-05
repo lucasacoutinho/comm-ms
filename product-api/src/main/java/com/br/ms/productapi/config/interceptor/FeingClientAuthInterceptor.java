@@ -1,6 +1,7 @@
 package com.br.ms.productapi.config.interceptor;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -10,6 +11,7 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 
+@Component
 public class FeingClientAuthInterceptor implements RequestInterceptor {
 
     @Override

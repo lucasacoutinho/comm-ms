@@ -10,6 +10,6 @@ import com.br.ms.productapi.modules.sales.dto.SalesProductResponse;
 
 @FeignClient(name = "salesClient", contextId = "salesClient", url = "${app-config.services.sales}")
 public interface SalesClient {
-    @GetMapping("/api/products/{productId}")
+    @GetMapping("/api/order/product/{productId}")
     Optional<SalesProductResponse> findSalesByProductId(@PathVariable Integer productId);
 }

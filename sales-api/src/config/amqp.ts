@@ -1,6 +1,6 @@
 import amqp, { Connection, Channel } from "amqplib/callback_api";
 import { env } from "./env";
-import salesConfirmationQueue from "../rabbitmq/sale/consumer/confirmation";
+import salesConfirmationQueue from "../rabbitmq/sales/consumer/SalesConfirmationListener";
 
 export const CONNECT_URL = `amqp://${env.RABBIT_MQ_USERNAME}:${env.RABBIT_MQ_PASSWORD}@${env.RABBIT_MQ_HOST}:${env.RABBIT_MQ_PORT}`;
 

@@ -1,14 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import OrderService from "../service/OrderService";
-import OrderException from "../exception/OrderException";
-import HttpStatusCode from "../enum/HttpStatusCode";
+import { OrderService } from "../service";
+import { OrderException } from "../exception";
 import { User } from "../types/user";
 import { Product } from "../types/product";
+import HttpStatusCode from "../enum/HttpStatusCode";
+import logger from "../utils/logger";
 
-const findAll = async (_req: Request, res: Response, next: NextFunction) => {
+const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const orders = await OrderService.findAll();
-    return res.status(HttpStatusCode.OK).json({ orders });
+
+    const response = { orders };
+    logger(req, response);
+    return res.status(HttpStatusCode.OK).json(response);
   } catch (error: unknown) {
     return next(error);
   }
@@ -23,7 +27,9 @@ const findById = async (req: Request, res: Response, next: NextFunction) => {
       return next(new OrderException("Order not found", HttpStatusCode.NOT_FOUND));
     }
 
-    return res.status(HttpStatusCode.OK).json({ order });
+    const response = { order };
+    logger(req, response);
+    return res.status(HttpStatusCode.OK).json(response);
   } catch (error: unknown) {
     return next(error);
   }
@@ -38,7 +44,9 @@ const findByProductId = async (req: Request, res: Response, next: NextFunction) 
       return next(new OrderException("Order not found", HttpStatusCode.NOT_FOUND));
     }
 
-    return res.status(HttpStatusCode.OK).json({ sales_ids: order.map((order) => order._id) });
+    const response = { sales_ids: order.map((order) => order._id) };
+    logger(req, response);
+    return res.status(HttpStatusCode.OK).json(response);
   } catch (error: unknown) {
     return next(error);
   }
@@ -50,9 +58,14 @@ const save = async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
     const { products } = req.body;
 
-    const order = await OrderService.save(products as Product[], user as User, authorization as string);
+    const order = await OrderService.save(products as Product[], user as User, {
+      authorization: authorization as string,
+      X_TRANSACTION_ID: req.headers["x-transaction-id"] as string
+    });
 
-    return res.status(HttpStatusCode.CREATED).json({ order });
+    const response = { order };
+    logger(req, response);
+    return res.status(HttpStatusCode.CREATED).json(response);
   } catch (error: unknown) {
     return next(error);
   }

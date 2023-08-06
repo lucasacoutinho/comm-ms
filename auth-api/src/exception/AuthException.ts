@@ -1,11 +1,8 @@
-export default class AuthException extends Error {
-  status: number;
+import AppException from "./AppException";
 
+export default class AuthException extends AppException {
   constructor(message: string, status: number) {
-    super(message);
-    this.name = this.constructor.name;
-    this.message = message;
-    this.status = status;
+    super(message, status);
     Error.captureStackTrace(this, this.constructor);
   }
 }

@@ -5,13 +5,15 @@ import { Product } from "../../types/product";
 const API_URL = `${env.SALES_PRODUCT_HOST}:${env.SALES_PRODUCT_PORT}`;
 
 class ProductClient {
-  async checkProductStock(products: Product[], token: string): Promise<boolean> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async checkProductStock(products: Product[], productRequestHeaders: any): Promise<boolean> {
     try {
       let response = true;
 
       const headers = {
         "Content-Type": "application/json",
-        Authorization: token
+        "X-TRANSACTION-ID": productRequestHeaders.X_TRANSACTION_ID as string,
+        Authorization: productRequestHeaders.authorization as string
       };
 
       await axios

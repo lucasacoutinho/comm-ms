@@ -6,7 +6,6 @@
     "removeComments": true /* Strips all comments from TypeScript files when converting into JavaScript- you rarely read compiled code so this saves space */,
     "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "commonjs" /* Specify what module code is generated. */,
-    "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */,
     "moduleResolution": "node" /* Pretty much always node for modern JS. Other option is "classic" */,
     "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,

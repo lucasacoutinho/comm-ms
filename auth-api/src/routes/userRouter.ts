@@ -1,19 +1,14 @@
-import authenticated from "../middleware/authenticated";
-import UserController from "../controller/UserController";
-import validate from "../middleware/validate";
-import AuthSchema from "../schemas/AuthSchema";
-import { UserSchema, UserFindByIdSchema } from "../schemas/UserSchema";
-import express, { Request, Response, Router } from "express";
+import express, { Router } from "express";
+import { authenticated, validate } from "../middleware";
+import { AuthSchema, UserSchema } from "../schema";
+import { UserController } from "../controller";
 
 const userRouter: Router = express.Router();
 
-userRouter.post("/user", validate(UserSchema), (req: Request, res: Response) => UserController.store(req, res));
-userRouter.post("/user/auth", validate(AuthSchema), (req: Request, res: Response) => UserController.login(req, res));
-userRouter.get(
-  "/user/:id",
-  authenticated,
-  validate(UserFindByIdSchema),
-  (req: Request<{ id?: number }>, res: Response) => UserController.show(req, res)
-);
+userRouter.post("/", validate(UserSchema.UserStoreSchema), UserController.store);
+userRouter.post("/auth", validate(AuthSchema), UserController.login);
+
+userRouter.use(authenticated);
+userRouter.get("/:id", validate(UserSchema.UserFindByIdSchema), UserController.show);
 
 export default userRouter;

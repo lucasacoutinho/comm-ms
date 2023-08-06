@@ -1,40 +1,30 @@
 import { User } from "../entity/User";
-import UserException from "../exception/UserException";
-import IUserRepository from "../repository/IUserRepository";
-import UserRepository from "../repository/UserRepository";
+import { UserException } from "../exception";
+import { UserRepository } from "../repository";
 import HttpStatusCode from "../enum/HttpStatusCode";
-import IUserService from "./IUserService";
 
-class UserService implements IUserService {
-  private userRepository: IUserRepository;
-
-  constructor(userRepository: IUserRepository) {
-    this.userRepository = userRepository;
+const findById = async (id: number): Promise<User> => {
+  const user = await UserRepository.findById(id);
+  if (!user) {
+    throw new UserException("User not found.", HttpStatusCode.NOT_FOUND);
   }
+  return user;
+};
 
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new UserException("User not found.", HttpStatusCode.NOT_FOUND);
-    }
-    return user;
+const findByEmail = async (email: string): Promise<User> => {
+  const user = await UserRepository.findByEmail(email);
+  if (!user) {
+    throw new UserException("User not found.", HttpStatusCode.NOT_FOUND);
   }
+  return user;
+};
 
-  async create(data: User): Promise<User> {
-    const user = await this.userRepository.findByEmail(data.email);
-    if (user) {
-      throw new UserException("User already exists.", HttpStatusCode.BAD_REQUEST);
-    }
-    return this.userRepository.create(data);
+const create = async (data: User): Promise<User> => {
+  const user = await UserRepository.findByEmail(data.email);
+  if (user) {
+    throw new UserException("User already exists.", HttpStatusCode.BAD_REQUEST);
   }
+  return UserRepository.create(data);
+};
 
-  async findById(id: number): Promise<User> {
-    const user = await this.userRepository.findById(id);
-    if (!user) {
-      throw new UserException("User not found.", HttpStatusCode.NOT_FOUND);
-    }
-    return user;
-  }
-}
-
-export default new UserService(UserRepository);
+export default { findById, findByEmail, create };

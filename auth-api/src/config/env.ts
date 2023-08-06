@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    NODE_ENV: z.string().min(1),
     API_SECRET: z.string().min(1),
     PORT: z.coerce.number().min(1),
     DB_HOST: z.string().min(1),

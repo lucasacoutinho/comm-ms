@@ -1,15 +1,15 @@
 import express, { Router } from "express";
 import { authenticated, validate } from "../middleware";
-import OrderController from "../controller/OrderController";
-import { OrderFindByIdSchema, OrderFindByProductIdSchema, OrderSaveSchema } from "../schemas/OrderSchema";
+import { OrderController } from "../controller";
+import { OrderSchema } from "../schema";
 
 const router: Router = express.Router();
 
 router.use(authenticated);
 
 router.get("/", OrderController.findAll);
-router.get("/:id", validate(OrderFindByIdSchema), OrderController.findById);
-router.post("/", validate(OrderSaveSchema), OrderController.save);
-router.get("/product/:id", validate(OrderFindByProductIdSchema), OrderController.findByProductId);
+router.get("/:id", validate(OrderSchema.FindByIdSchema), OrderController.findById);
+router.post("/", validate(OrderSchema.SaveSchema), OrderController.save);
+router.get("/product/:id", validate(OrderSchema.FindByProductIdSchema), OrderController.findByProductId);
 
 export default router;

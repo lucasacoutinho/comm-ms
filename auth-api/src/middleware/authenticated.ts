@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { env } from "../config/env";
-import AuthException from "../exception/AuthException";
+import { AuthException } from "../exception";
 import HttpStatusCode from "../enum/HttpStatusCode";
 
 const verify = (token: string): Promise<JwtPayload | string | undefined> => {
@@ -15,7 +15,7 @@ const verify = (token: string): Promise<JwtPayload | string | undefined> => {
   });
 };
 
-const authenticated = async (req: Request, res: Response, next: NextFunction) => {
+const authenticated = async (req: Request, _res: Response, next: NextFunction) => {
   try {
     const { authorization } = req.headers;
 
@@ -30,10 +30,7 @@ const authenticated = async (req: Request, res: Response, next: NextFunction) =>
 
     return next();
   } catch (error) {
-    if (error instanceof AuthException) {
-      return res.status(error.status).json({ message: error.message });
-    }
-    return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ message: error });
+    next(error);
   }
 };
 

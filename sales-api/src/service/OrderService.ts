@@ -1,12 +1,12 @@
-import OrderRepository from "../repository/OrderRepository";
+import { OrderRepository } from "../repository";
+import ProductStockSender from "../rabbitmq/product/producer/ProductStockSender";
+import ProductClient from "../client/product/ProductClient";
+import { OrderException } from "../exception";
 import { IOrder } from "../entity/Order";
 import OrderStatus from "../enum/OrderStatus";
 import { Product } from "../types/product";
-import ProductStockSender from "../rabbitmq/product/producer/ProductStockSender";
 import { User } from "../types/user";
-import OrderException from "../exception/OrderException";
 import HttpStatusCode from "../enum/HttpStatusCode";
-import ProductClient from "../client/product/ProductClient";
 
 const findAll = async (): Promise<IOrder[]> => {
   return OrderRepository.findAll();
@@ -34,15 +34,15 @@ const validateProducts = (products: Product[]): void => {
   }
 };
 
-const validateStock = async (products: Product[], token: string): Promise<void> => {
-  const stockIsOut = await ProductClient.checkProductStock(products, token);
+const validateStock = async (products: Product[], productRequestHeaders: unknown): Promise<void> => {
+  const stockIsOut = await ProductClient.checkProductStock(products, productRequestHeaders);
 
   if (stockIsOut) {
     throw new OrderException("The stock is out for the products", HttpStatusCode.UNPROCESSABLE_ENTITY);
   }
 };
 
-const save = async (products: Product[], user: User, token: string): Promise<IOrder> => {
+const save = async (products: Product[], user: User, productRequestHeaders: unknown): Promise<IOrder> => {
   validateProducts(products);
 
   const order = {
@@ -53,7 +53,7 @@ const save = async (products: Product[], user: User, token: string): Promise<IOr
     updatedAt: new Date()
   };
 
-  await validateStock(order.products, token);
+  await validateStock(order.products, productRequestHeaders);
 
   const result = await OrderRepository.save(order);
 
